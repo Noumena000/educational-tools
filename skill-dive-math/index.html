@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Skill Dive: Math</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light dark;
+  --bg:#e8f3f5; --card:#ffffff; --ink:#0f2f3d; --muted:#557683; --line:#c5dce2;
+  --accent:#0a7d8c; --accent-ink:#ffffff; --sun:#f08a24; --soft:#d7ecf0; --good:#1f8f63;
+  --shadow:0 2px 0 rgba(15,47,61,.08);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1a21; --card:#12262f; --ink:#e5f1f4; --muted:#92adb7; --line:#244350;
+    --accent:#3fbccb; --accent-ink:#052229; --sun:#f5a04a; --soft:#173540; --good:#4cc69a;
+    --shadow:0 2px 0 rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1a21; --card:#12262f; --ink:#e5f1f4; --muted:#92adb7; --line:#244350;
+  --accent:#3fbccb; --accent-ink:#052229; --sun:#f5a04a; --soft:#173540; --good:#4cc69a;
+  --shadow:0 2px 0 rgba(0,0,0,.35);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",ui-rounded,"SF Pro Rounded",system-ui,-apple-system,sans-serif;font-weight:500;line-height:1.5}
+main{max-width:760px;margin:0 auto;padding:20px 18px 48px}
+h1{font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.1;margin:8px 0 6px;font-weight:800;letter-spacing:-.01em}
+h2{font-size:1.2rem;margin:0 0 6px;font-weight:800}
+p{margin:0 0 12px}
+.muted{color:var(--muted)}
+.wave{display:block;width:100%;height:28px;margin:4px 0 14px;color:var(--accent)}
+.intro{background:var(--soft);border-radius:18px;padding:16px 18px;margin-bottom:18px}
+.grid{display:grid;gap:12px}
+@media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
+.strand{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow)}
+.strand.done{border-color:var(--good)}
+.strand .top{display:flex;align-items:center;gap:10px}
+.strand .icon{font-size:1.7rem;width:2.4rem;text-align:center}
+.status{font-size:.92rem;color:var(--muted)}
+.status.ok{color:var(--good);font-weight:800}
+button{font:inherit;font-weight:800;cursor:pointer;border-radius:14px;border:2px solid transparent;min-height:50px;padding:10px 20px;-webkit-tap-highlight-color:transparent}
+button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.primary{background:var(--accent);color:var(--accent-ink)}
+.primary:active{transform:translateY(1px)}
+.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.link{background:none;border:none;color:var(--accent);min-height:44px;padding:8px 4px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.banner{background:var(--card);border:2px solid var(--sun);border-radius:14px;padding:12px 16px;margin-bottom:16px}
+/* quiz */
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 16px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.dot.on{background:var(--accent)}
+.dot.now{background:var(--sun)}
+.qcard{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:22px 20px;box-shadow:var(--shadow)}
+.qtext{font-size:clamp(1.45rem,4.2vw,2rem);line-height:1.35;font-weight:700;margin-bottom:20px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 .15em;line-height:1.15;font-size:.95em}
+.frac span:first-child{border-bottom:3px solid currentColor;padding:0 .3em}
+.answer{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+input.box{font:inherit;font-size:1.8rem;font-weight:800;width:min(100%,12rem);padding:10px 14px;border-radius:14px;border:3px solid var(--line);background:var(--bg);color:var(--ink);text-align:center}
+input.box:focus{border-color:var(--accent)}
+.fracin{display:flex;flex-direction:column;align-items:center;gap:6px}
+.fracin input.box{width:7rem}
+.fracin .bar{height:4px;width:7rem;background:var(--ink);border-radius:2px}
+.shake{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.hint{font-size:.95rem;color:var(--muted);margin-top:14px}
+/* results */
+.bars{display:grid;gap:14px;margin:14px 0 22px}
+.brow .lab{display:flex;justify-content:space-between;gap:10px;font-weight:800}
+.seg{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:6px 0 4px}
+.seg i{height:16px;border-radius:6px;background:var(--line)}
+.seg i.fill{background:var(--accent)}
+.seg i.try{background:repeating-linear-gradient(45deg,var(--sun) 0 5px,transparent 5px 10px);border:2px solid var(--sun)}
+.scale{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;font-size:.78rem;color:var(--muted);text-align:center}
+details{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 16px;margin:12px 0}
+summary{cursor:pointer;font-weight:800;min-height:32px}
+textarea{width:100%;min-height:180px;font:inherit;font-size:.9rem;padding:10px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.log{font-size:.92rem;margin:6px 0 0;padding-left:1.1em}
+.log li{margin-bottom:4px}
+.bad{color:#c0392b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .bad{color:#ff8a7a}}
+:root[data-theme="dark"] .bad{color:#ff8a7a}
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+
+<script>
+"use strict";
+/* ---------- helpers ---------- */
+const ri=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[ri(0,a.length-1)];
+const fmt=n=>n.toLocaleString("en-US");
+const F=(n,d)=>`<span class="frac"><span>${n}</span><span>${d}</span></span>`;
+const NAMES=["Maya","Leo","Sam","Nina","Omar","Ruby","Kai","Zoe","Theo","Ella","Priya","Marco"];
+const twoNames=()=>{const a=pick(NAMES);let b=pick(NAMES);while(b===a)b=pick(NAMES);return[a,b];};
+const ITEMS=["apples","stickers","marbles","shells","coins","pencils","cards"];
+const toText=h=>h.replace(/<span class="frac"><span>(\d+)<\/span><span>(\d+)<\/span><\/span>/g,"$1/$2").replace(/<[^>]+>/g,"");
+const toSpeech=h=>toText(h).replace(/(\d+)\/(\d+)/g,"$1 over $2").replace(/×/g," times ").replace(/÷/g," divided by ").replace(/−/g," minus ").replace(/▢/g," what number ").replace(/\+/g," plus ").replace(/=/g," equals ");
+const num=(q,a)=>({q,a,t:"num"});
+const frac=(q,n,d)=>({q,a:[n,d],t:"frac"});
+
+/* ---------- question generators: levels 1-6 (roughly Grade 1-6) ---------- */
+const STRANDS=[
+{id:"place",name:"Numbers & place value",icon:"🔢",blurb:"Tens, hundreds, rounding, decimals",gens:{
+ 1:[()=>{const t=ri(1,9),o=ri(0,9);return num(`What number is ${t} tens and ${o} ones?`,t*10+o);}],
+ 2:[()=>{const h=ri(1,9),t=ri(0,9),o=ri(0,9);return num(`What number has ${h} hundreds, ${t} tens, and ${o} ones?`,h*100+t*10+o);}],
+ 3:[()=>{const n=ri(101,998),p=pick([10,100]);return num(`Round ${n} to the nearest ${p}.`,Math.round(n/p)*p);},
+    ()=>{const n=ri(110,890);return num(`What is 10 more than ${n}?`,n+10);},
+    ()=>{const n=ri(310,990);return num(`What is 100 less than ${n}?`,n-100);}],
+ 4:[()=>{const n=ri(1001,9998),p=pick([100,1000]);return num(`Round ${fmt(n)} to the nearest ${fmt(p)}.`,Math.round(n/p)*p);},
+    ()=>{const a=ri(1,9),b=ri(1,9),c=ri(1,9),d=ri(1,9);return num(`${fmt(a*1000)} + ${b*100} + ${c*10} + ${d} = ?`,a*1000+b*100+c*10+d);}],
+ 5:[()=>{const a=ri(1,9),b=ri(1,9);return num(`What decimal is ${a} tenths and ${b} hundredths? (Example: 1 tenth and 4 hundredths is 0.14.)`,(a*10+b)/100);},
+    ()=>{const x=ri(11,99);return num(`Round ${(x/10).toFixed(1)} to the nearest whole number.`,Math.round(x/10));}],
+ 6:[()=>{const x=ri(1000,9999),tenth=Math.random()<.5;return num(`Round ${(x/1000).toFixed(3)} to the nearest ${tenth?"tenth":"hundredth"}.`,tenth?Math.floor((x+50)/100)/10:Math.floor((x+5)/10)/100);},
+    ()=>{const a=ri(11,999),m=pick([10,100]);return num(`${(a/100).toFixed(2)} × ${m} = ?`,m===10?a/10:a);}]
+}},
+{id:"addsub",name:"Adding & subtracting",icon:"➕",blurb:"From small sums to big numbers and decimals",gens:{
+ 1:[()=>{const a=ri(2,12),b=ri(2,20-a);return num(`${a} + ${b} = ?`,a+b);},
+    ()=>{const s=ri(8,20),b=ri(2,s-3);return num(`${s} − ${b} = ?`,s-b);}],
+ 2:[()=>{const a=ri(11,60),b=ri(11,99-a);return num(`${a} + ${b} = ?`,a+b);},
+    ()=>{const a=ri(30,99),b=ri(10,a-5);return num(`${a} − ${b} = ?`,a-b);}],
+ 3:[()=>{const a=ri(150,800),b=ri(150,999-a);return num(`${a} + ${b} = ?`,a+b);},
+    ()=>{const a=ri(300,999),b=ri(100,a-50);return num(`${a} − ${b} = ?`,a-b);}],
+ 4:[()=>{const a=ri(1500,8000),b=ri(1500,9999-a);return num(`${fmt(a)} + ${fmt(b)} = ?`,a+b);},
+    ()=>{const a=ri(3000,9999),b=ri(1000,a-500);return num(`${fmt(a)} − ${fmt(b)} = ?`,a-b);}],
+ 5:[()=>{const x=ri(150,899),y=ri(150,899);return num(`${(x/100).toFixed(2)} + ${(y/100).toFixed(2)} = ?`,(x+y)/100);},
+    ()=>{let x=ri(150,899),y=ri(150,899);if(y>x)[x,y]=[y,x];return num(`${(x/100).toFixed(2)} − ${(y/100).toFixed(2)} = ?`,(x-y)/100);}],
+ 6:[()=>{const a=ri(10000,60000),b=ri(10000,99999-a);return num(`${fmt(a)} + ${fmt(b)} = ?`,a+b);},
+    ()=>{const t=ri(100,300),h=ri(200,999);return num(`${(t/10).toFixed(1)} − ${(h/100).toFixed(2)} = ?`,(t*10-h)/100);},
+    ()=>{const a=ri(20000,99999),b=ri(5000,a-3000);return num(`${fmt(a)} − ${fmt(b)} = ?`,a-b);}]
+}},
+{id:"muldiv",name:"Multiplying & dividing",icon:"✖️",blurb:"Groups, times tables, long problems",gens:{
+ 1:[()=>{const a=pick([2,5,10]),b=ri(1,10);return num(`${b} groups of ${a} is how many in all?`,a*b);}],
+ 2:[()=>{const a=ri(2,5),b=ri(2,10);return num(`${a} × ${b} = ?`,a*b);}],
+ 3:[()=>{const a=ri(3,9),b=ri(3,9);return num(`${a} × ${b} = ?`,a*b);},
+    ()=>{const a=ri(3,9),b=ri(3,9);return num(`${a*b} ÷ ${a} = ?`,b);}],
+ 4:[()=>{const a=ri(12,60),b=ri(3,9);return num(`${a} × ${b} = ?`,a*b);},
+    ()=>{const d=ri(3,9),q=ri(12,25);return num(`${d*q} ÷ ${d} = ?`,q);}],
+ 5:[()=>{const a=ri(12,45),b=ri(11,29);return num(`${a} × ${b} = ?`,a*b);},
+    ()=>{const d=ri(3,9),q=ri(40,150);return num(`${fmt(d*q)} ÷ ${d} = ?`,q);}],
+ 6:[()=>{const a=ri(120,450),b=ri(12,39);return num(`${a} × ${b} = ?`,a*b);},
+    ()=>{const d=ri(12,35),q=ri(30,90);return num(`${fmt(d*q)} ÷ ${d} = ?`,q);},
+    ()=>{const x=ri(12,99),n=ri(3,9);return num(`${(x/10).toFixed(1)} × ${n} = ?`,(x*n)/10);}]
+}},
+{id:"fractions",name:"Fractions",icon:"🍕",blurb:"Parts of a whole, comparing, adding, multiplying",gens:{
+ 1:[()=>{const d=pick([2,3,4]),n=ri(1,d-1);return frac(`A pizza is cut into ${d} equal slices. You eat ${n}. What fraction of the pizza did you eat?`,n,d);}],
+ 2:[()=>{let a=ri(2,8),b=ri(2,8);while(b===a)b=ri(2,8);return frac(`Which fraction is bigger: ${F(1,a)} or ${F(1,b)}?`,1,Math.min(a,b));}],
+ 3:[()=>{const d=ri(2,5),n=ri(1,d-1),k=ri(2,5);return num(`${F(n,d)} = ${F("▢",d*k)}`,n*k);}],
+ 4:[()=>{const d=ri(5,12);if(Math.random()<.5){const a=ri(1,d-2),b=ri(1,d-1-a);return frac(`${F(a,d)} + ${F(b,d)} = ?`,a+b,d);}const a=ri(2,d-1),b=ri(1,a-1);return frac(`${F(a,d)} − ${F(b,d)} = ?`,a-b,d);}],
+ 5:[()=>{for(;;){const d1=ri(2,5),k=ri(2,3),d2=d1*k,n1=ri(1,d1-1),n2=ri(1,d2-1);if(n1*k+n2<d2)return frac(`${F(n1,d1)} + ${F(n2,d2)} = ?`,n1*k+n2,d2);}},
+    ()=>{for(;;){const d1=ri(2,5),k=ri(2,3),d2=d1*k,n1=ri(1,d1-1),n2=ri(1,d2-1);if(n1*k>n2)return frac(`${F(n1,d1)} − ${F(n2,d2)} = ?`,n1*k-n2,d2);}}],
+ 6:[()=>{const d1=ri(3,7),n1=ri(1,d1-1),d2=ri(3,7),n2=ri(1,d2-1);return frac(`${F(n1,d1)} × ${F(n2,d2)} = ?`,n1*n2,d1*d2);}]
+}},
+{id:"word",name:"Word problems",icon:"📖",blurb:"Real-life stories that need math",gens:{
+ 1:[()=>{const[n,m]=twoNames(),it=pick(ITEMS),a=ri(3,12),b=ri(2,20-a);return num(`${n} has ${a} ${it}. ${m} gives ${n} ${b} more. How many ${it} does ${n} have now?`,a+b);},
+    ()=>{const n=pick(NAMES),it=pick(ITEMS),s=ri(10,20),b=ri(2,s-3);return num(`${n} had ${s} ${it} and gave ${b} to a friend. How many ${it} are left?`,s-b);}],
+ 2:[()=>{const[n,m]=twoNames(),it=pick(ITEMS),a=ri(20,55),b=ri(12,99-a);return num(`${n} has ${a} ${it}. ${m} has ${b} ${it}. How many ${it} do they have together?`,a+b);},
+    ()=>{const n=pick(NAMES),it=pick(ITEMS),s=ri(40,95),b=ri(12,s-10);return num(`${n} had ${s} ${it} and gave away ${b}. How many ${it} does ${n} have left?`,s-b);}],
+ 3:[()=>{const g=ri(3,9),k=ri(3,9),it=pick(ITEMS);return num(`There are ${g} boxes. Each box has ${k} ${it}. How many ${it} are there in all?`,g*k);},
+    ()=>{const g=ri(3,9),k=ri(3,9),it=pick(ITEMS);return num(`${g*k} ${it} are shared equally among ${g} friends. How many ${it} does each friend get?`,k);}],
+ 4:[()=>{const n=pick(NAMES),a=ri(3,8),k=ri(4,9),b=ri(5,30);return num(`${n} buys ${a} packs of stickers. Each pack has ${k} stickers. Then ${n} finds ${b} more stickers. How many stickers does ${n} have now?`,a*k+b);},
+    ()=>{const r=ri(4,9),k=ri(5,9),m=ri(4,Math.min(20,r*k-5));return num(`A classroom has ${r} rows with ${k} desks in each row. ${m} desks are taken away. How many desks are left?`,r*k-m);}],
+ 5:[()=>{const n=pick(NAMES),p1=ri(2,6)*50,p2=ri(1,4)*25+50,a=ri(2,4),b=ri(2,3);return num(`A notebook costs $${(p1/100).toFixed(2)} and a pen costs $${(p2/100).toFixed(2)}. ${n} buys ${a} notebooks and ${b} pens. How many dollars does ${n} spend in all?`,(a*p1+b*p2)/100);},
+    ()=>{const n=pick(NAMES),p=ri(6,12),c=ri(2,5);let pay=Math.ceil(p*c/10)*10;if(pay===p*c)pay+=10;return num(`Movie tickets cost $${p} each. ${n} buys ${c} tickets and pays with $${pay}. How many dollars of change does ${n} get back?`,pay-p*c);}],
+ 6:[()=>{const s=ri(35,65),h=ri(3,7),m=ri(40,200);return num(`A train goes ${s} miles each hour for ${h} hours. Then it goes ${m} more miles. How many miles did it travel in all?`,s*h+m);},
+    ()=>{const n=pick(NAMES),a=ri(12,25),w=ri(6,12),b=ri(20,a*w-30);return num(`${n} saves $${a} each week for ${w} weeks, then spends $${b} on a gift. How many dollars does ${n} have left?`,a*w-b);}]
+}},
+{id:"shapes",name:"Shapes & measuring",icon:"📐",blurb:"Sides, perimeter, area, volume",gens:{
+ 1:[()=>{const s=pick([["triangle",3],["square",4],["rectangle",4],["pentagon",5],["hexagon",6]]);return num(`How many sides does a ${s[0]} have?`,s[1]);}],
+ 2:[()=>{const s=pick([["How many minutes are in 1 hour?",60],["How many days are in 1 week?",7],["How many inches are in 1 foot?",12],["How many months are in 1 year?",12],["How many cents are in 1 dollar?",100],["How many minutes are in half an hour?",30]]);return num(s[0],s[1]);}],
+ 3:[()=>{const l=ri(4,12),w=ri(2,l-1);return num(`A rectangle is ${l} units long and ${w} units wide. What is its perimeter?`,2*(l+w));}],
+ 4:[()=>{const l=ri(4,12),w=ri(3,9);return num(`A rectangle is ${l} cm long and ${w} cm wide. What is its area in square cm?`,l*w);}],
+ 5:[()=>{const l=ri(4,12),w=ri(3,9);return num(`The area of a rectangle is ${l*w} square meters. One side is ${l} meters long. How long is the other side, in meters?`,w);},
+    ()=>{const l=ri(5,15),w=ri(3,l-1);return num(`A rectangle has a perimeter of ${2*(l+w)} cm. One side is ${l} cm long. How long is the other side, in cm?`,w);}],
+ 6:[()=>{const l=ri(3,9),w=ri(3,8),h=ri(2,7);return num(`A box is ${l} cm long, ${w} cm wide, and ${h} cm tall. What is its volume in cubic cm?`,l*w*h);},
+    ()=>{const b=ri(3,10)*2,h=ri(3,12);return num(`A triangle has a base of ${b} cm and a height of ${h} cm. What is its area in square cm?`,b*h/2);}]
+}}
+];
+
+/* ---------- state ---------- */
+const KEY="skillDiveMath_v1";
+const QCOUNT=10;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null;}catch(e){return null;}}
+let S=load()||{strands:{}};
+function ST(id){if(!S.strands[id])S.strands[id]={level:3,streak:0,n:0,stats:{},log:[],seen:[],cur:null,done:false};return S.strands[id];}
+const app=document.getElementById("app");
+let resetArmed=false;
+
+/* ---------- engine ---------- */
+function gen(st,sid){
+  const sd=STRANDS.find(s=>s.id===sid);
+  for(let i=0;i<30;i++){
+    const q=pick(sd.gens[st.level])();
+    if(!st.seen.includes(q.q)){st.seen.push(q.q);return Object.assign({},q,{level:st.level});}
+  }
+  return Object.assign({},pick(sd.gens[st.level])(),{level:st.level});
+}
+function check(q,v){
+  if(q.t==="num"){
+    const s=String(v).replace(/[$,\s]/g,"");
+    if(s===""||isNaN(Number(s)))return false;
+    return Math.abs(Number(s)-q.a)<1e-6;
+  }
+  const n=Number(v.n),d=Number(v.d);
+  if(!Number.isInteger(n)||!Number.isInteger(d)||d===0)return false;
+  return n*q.a[1]===q.a[0]*d;
+}
+const ansText=q=>q.t==="frac"?`${q.a[0]}/${q.a[1]}`:String(+Number(q.a).toFixed(4));
+function placement(st){
+  let best=0;
+  for(let l=1;l<=6;l++){const s=st.stats[l];if(s&&s.c>=2&&s.c/s.a>=0.6)best=l;}
+  const next=st.stats[best+1];
+  return{best,tricky:(best<6&&next&&next.a>0)?best+1:null};
+}
+
+/* ---------- views ---------- */
+function wave(){return `<svg class="wave" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 Q 25 0 50 14 T 100 14 T 150 14 T 200 14 T 250 14 T 300 14 T 350 14 T 400 14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>`;}
+
+function home(msg){
+  const anyDone=STRANDS.some(s=>ST(s.id).done);
+  const cards=STRANDS.map(s=>{
+    const st=ST(s.id);
+    let status,btn="";
+    if(st.done){status=`<div class="status ok">Finished ✓</div>`;}
+    else if(st.n>0){status=`<div class="status">In progress: ${st.n} of ${QCOUNT} answered</div>`;btn=`<button class="primary" data-go="${s.id}">Keep going</button>`;}
+    else{status=`<div class="status">Not started</div>`;btn=`<button class="primary" data-go="${s.id}">Start</button>`;}
+    return `<div class="strand ${st.done?"done":""}"><div class="top"><div class="icon" aria-hidden="true">${s.icon}</div><div><h2>${s.name}</h2><div class="muted">${s.blurb}</div></div></div>${status}${btn?`<div class="row">${btn}</div>`:""}</div>`;
+  }).join("");
+  app.innerHTML=`
+    <h1>Skill Dive: Math</h1>${wave()}
+    ${msg?`<div class="banner">${msg}</div>`:""}
+    <div class="intro">
+      <p><strong>Welcome, explorer!</strong> Each dive has ${QCOUNT} questions. They start in the middle and get harder when you’re doing well, so some will feel tricky. That’s on purpose.</p>
+      <p style="margin:0">Do your best. If you’re stuck, tap “Not sure yet.” Use paper or the Notes app for scratch work. Pick one dive at a time.</p>
+    </div>
+    <div class="grid">${cards}</div>
+    ${anyDone?`<div class="row" style="margin-top:20px"><button class="ghost" id="seeRes">See results</button></div>`:""}`;
+  app.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>quiz(b.dataset.go)));
+  const r=document.getElementById("seeRes");if(r)r.addEventListener("click",results);
+  window.scrollTo(0,0);
+}
+
+function quiz(id){
+  const st=ST(id),sd=STRANDS.find(s=>s.id===id);
+  if(st.done){home();return;}
+  if(!st.cur){st.cur=gen(st,id);save();}
+  const q=st.cur;
+  const dots=Array.from({length:QCOUNT},(_,i)=>`<span class="dot ${i<st.n?"on":i===st.n?"now":""}"></span>`).join("");
+  const input=q.t==="num"
+    ?`<div class="answer"><input class="box" id="ans" type="text" inputmode="decimal" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="Your answer"></div>`
+    :`<div class="answer"><div class="fracin"><input class="box" id="fn" type="text" inputmode="numeric" autocomplete="off" aria-label="Top number"><div class="bar"></div><input class="box" id="fd" type="text" inputmode="numeric" autocomplete="off" aria-label="Bottom number"></div></div>`;
+  const canSpeak="speechSynthesis" in window;
+  app.innerHTML=`
+    <div class="qtop"><button class="link" id="back">← Menu</button><strong>${sd.icon} ${sd.name}</strong></div>
+    <div class="dots" role="img" aria-label="Question ${st.n+1} of ${QCOUNT}">${dots}</div>
+    <div class="qcard">
+      <div class="qtext">${q.q}</div>
+      ${input}
+      <div class="actions">
+        <button class="primary" id="go">Done</button>
+        <button class="ghost" id="idk">Not sure yet</button>
+        ${canSpeak?`<button class="ghost" id="say" aria-label="Read the question aloud">🔊 Read it to me</button>`:""}
+      </div>
+      <div class="hint">Scratch paper or Notes is fine. Take your time.</div>
+    </div>`;
+  document.getElementById("back").addEventListener("click",()=>home());
+  document.getElementById("go").addEventListener("click",()=>submit(id,false));
+  document.getElementById("idk").addEventListener("click",()=>submit(id,true));
+  if(canSpeak)document.getElementById("say").addEventListener("click",()=>{try{speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(toSpeech(q.q)));}catch(e){}});
+  app.querySelectorAll("input").forEach(i=>i.addEventListener("keydown",e=>{if(e.key==="Enter")submit(id,false);}));
+  window.scrollTo(0,0);
+  const first=document.getElementById("ans")||document.getElementById("fn");if(first)first.focus();
+}
+
+function nudge(){
+  const box=app.querySelector(".answer");box.classList.remove("shake");void box.offsetWidth;box.classList.add("shake");
+  const f=app.querySelector("input");if(f)f.focus();
+}
+
+function submit(id,idk){
+  const st=ST(id),q=st.cur;if(!q)return;
+  let given="not sure",ok=false;
+  if(!idk){
+    if(q.t==="num"){
+      given=document.getElementById("ans").value.trim();
+      if(!given){nudge();return;}
+      ok=check(q,given);
+    }else{
+      const n=document.getElementById("fn").value.trim(),d=document.getElementById("fd").value.trim();
+      if(!n||!d){nudge();return;}
+      given=`${n}/${d}`;ok=check(q,{n,d});
+    }
+  }
+  const s=st.stats[q.level]||(st.stats[q.level]={a:0,c:0});
+  s.a++;if(ok)s.c++;
+  st.log.push({lvl:q.level,q:toText(q.q),given,ok,ans:ansText(q)});
+  if(ok){st.streak++;if(st.streak>=2){st.level=Math.min(6,st.level+1);st.streak=0;}}
+  else{st.level=Math.max(1,st.level-1);st.streak=0;}
+  st.n++;st.cur=null;
+  if(st.n>=QCOUNT){st.done=true;save();const sd=STRANDS.find(x=>x.id===id);home(`Dive finished: ${sd.name}. Nice work! Pick another dive whenever you’re ready.`);return;}
+  save();quiz(id);
+}
+
+function summaryText(){
+  const lines=["Skill Dive: Math results","(Approximate levels. A quick screener, not an official assessment.)",""];
+  STRANDS.forEach(s=>{
+    const st=ST(s.id);
+    if(!st.done){lines.push(`${s.name}: not finished`);return;}
+    const p=placement(st);
+    const tot=Object.values(st.stats).reduce((x,y)=>({a:x.a+y.a,c:x.c+y.c}),{a:0,c:0});
+    lines.push(`${s.name}: comfortable around ${p.best?"Grade "+p.best:"Grade 1 or below"}${p.tricky?`, getting tricky at Grade ${p.tricky}`:""} (${tot.c}/${tot.a} correct)`);
+  });
+  lines.push("","Missed or skipped questions:");
+  STRANDS.forEach(s=>{
+    const st=ST(s.id);
+    st.log.filter(l=>!l.ok).forEach(l=>lines.push(`- [${s.name}, level ${l.lvl}] ${l.q} | answered: ${l.given} | correct: ${l.ans}`));
+  });
+  return lines.join("\n");
+}
+
+function results(){
+  resetArmed=false;
+  const rows=STRANDS.map(s=>{
+    const st=ST(s.id);
+    if(!st.done){
+      return `<div class="brow"><div class="lab"><span>${s.icon} ${s.name}</span><span class="muted">${st.n>0?"Not finished":"Not started"}</span></div></div>`;
+    }
+    const p=placement(st);
+    const segs=[1,2,3,4,5,6].map(l=>`<i class="${l<=p.best?"fill":l===p.tricky?"try":""}"></i>`).join("");
+    const note=p.best===0?"Still building the basics here":`Comfortable around Grade ${p.best}`+(p.tricky?`; Grade ${p.tricky} is where it gets tricky`:p.best===6?"; may be ready for even harder material":"");
+    return `<div class="brow"><div class="lab"><span>${s.icon} ${s.name}</span></div><div class="seg">${segs}</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><div class="muted">${note}</div></div>`;
+  }).join("");
+  const logs=STRANDS.filter(s=>ST(s.id).log.length).map(s=>{
+    const st=ST(s.id);
+    return `<details><summary>${s.icon} ${s.name}: every question</summary><ol class="log">${st.log.map(l=>`<li class="${l.ok?"":"bad"}">[L${l.lvl}] ${l.q}<br>Answered: ${l.given}${l.ok?" ✓":` ✗ (correct: ${l.ans})`}</li>`).join("")}</ol></details>`;
+  }).join("");
+  app.innerHTML=`
+    <div class="qtop"><button class="link" id="back">← Menu</button></div>
+    <h1>Results</h1>${wave()}
+    <p class="muted">Filled blocks show where he’s solid. A striped block is the level where it started to get hard. Levels 1–6 loosely follow Grades 1–6.</p>
+    <div class="bars">${rows}</div>
+    <details><summary>For grown-ups: copy a summary</summary>
+      <p class="muted">Levels are rough estimates from ${QCOUNT} questions per area. Skim for question errors and for skipped or rushed answers before trusting a number.</p>
+      <textarea id="sum" readonly>${summaryText().replace(/</g,"&lt;")}</textarea>
+      <div class="row" style="margin-top:10px"><button class="primary" id="copy">Copy summary</button><span id="copied" class="muted"></span></div>
+    </details>
+    ${logs}
+    <div class="row" style="margin-top:22px"><button class="ghost" id="reset">Start over (clears all results)</button></div>`;
+  document.getElementById("back").addEventListener("click",()=>home());
+  document.getElementById("copy").addEventListener("click",async()=>{
+    const t=document.getElementById("sum"),c=document.getElementById("copied");
+    try{await navigator.clipboard.writeText(t.value);c.textContent="Copied.";}
+    catch(e){t.focus();t.select();c.textContent="Text selected. Tap Copy in the menu.";}
+  });
+  const rs=document.getElementById("reset");
+  rs.addEventListener("click",()=>{
+    if(!resetArmed){resetArmed=true;rs.textContent="Tap again to erase everything";return;}
+    S={strands:{}};save();home("Everything was cleared. You can start fresh.");
+  });
+  window.scrollTo(0,0);
+}
+
+home();
+</script>
+</body>
+</html>
