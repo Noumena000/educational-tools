@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Skill Dive: English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light dark;
+  --bg:#e8f3f5; --card:#ffffff; --ink:#0f2f3d; --muted:#557683; --line:#c5dce2;
+  --accent:#0a7d8c; --accent-ink:#ffffff; --sun:#f08a24; --soft:#d7ecf0; --good:#1f8f63;
+  --shadow:0 2px 0 rgba(15,47,61,.08);
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0b1a21; --card:#12262f; --ink:#e5f1f4; --muted:#92adb7; --line:#244350;
+    --accent:#3fbccb; --accent-ink:#052229; --sun:#f5a04a; --soft:#173540; --good:#4cc69a;
+    --shadow:0 2px 0 rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1a21; --card:#12262f; --ink:#e5f1f4; --muted:#92adb7; --line:#244350;
+  --accent:#3fbccb; --accent-ink:#052229; --sun:#f5a04a; --soft:#173540; --good:#4cc69a;
+  --shadow:0 2px 0 rgba(0,0,0,.35);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Nunito",ui-rounded,"SF Pro Rounded",system-ui,-apple-system,sans-serif;font-weight:500;line-height:1.5}
+main{max-width:760px;margin:0 auto;padding:20px 18px 48px}
+h1{font-size:clamp(1.9rem,5vw,2.6rem);line-height:1.1;margin:8px 0 6px;font-weight:800;letter-spacing:-.01em}
+h2{font-size:1.2rem;margin:0 0 6px;font-weight:800}
+p{margin:0 0 12px}
+.muted{color:var(--muted)}
+.wave{display:block;width:100%;height:28px;margin:4px 0 14px;color:var(--accent)}
+.intro{background:var(--soft);border-radius:18px;padding:16px 18px;margin-bottom:18px}
+.grid{display:grid;gap:12px}
+@media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
+.strand{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow)}
+.strand.done{border-color:var(--good)}
+.strand .top{display:flex;align-items:center;gap:10px}
+.strand .icon{font-size:1.7rem;width:2.4rem;text-align:center}
+.status{font-size:.92rem;color:var(--muted)}
+.status.ok{color:var(--good);font-weight:800}
+button{font:inherit;font-weight:800;cursor:pointer;border-radius:14px;border:2px solid transparent;min-height:50px;padding:10px 20px;-webkit-tap-highlight-color:transparent}
+button:focus-visible,summary:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.primary{background:var(--accent);color:var(--accent-ink)}
+.primary:active{transform:translateY(1px)}
+.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.link{background:none;border:none;color:var(--accent);min-height:44px;padding:8px 4px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.banner{background:var(--card);border:2px solid var(--sun);border-radius:14px;padding:12px 16px;margin-bottom:16px}
+/* quiz */
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 16px}
+.dot{width:14px;height:14px;border-radius:50%;background:var(--line)}
+.dot.on{background:var(--accent)}
+.dot.now{background:var(--sun)}
+.qcard{background:var(--card);border:2px solid var(--line);border-radius:20px;padding:22px 20px;box-shadow:var(--shadow)}
+.passage{background:var(--soft);border-left:6px solid var(--accent);border-radius:12px;padding:14px 16px;margin-bottom:18px;font-size:clamp(1.1rem,3.2vw,1.3rem);line-height:1.65}
+.qtext{font-size:clamp(1.35rem,4vw,1.8rem);line-height:1.35;font-weight:700;margin-bottom:18px}
+.opts{display:grid;gap:10px}
+.opt{width:100%;text-align:left;background:var(--bg);color:var(--ink);border:3px solid var(--line);font-size:clamp(1.1rem,3.4vw,1.35rem);font-weight:700;min-height:58px;padding:12px 16px;line-height:1.35}
+.opt[aria-pressed="true"]{border-color:var(--accent);background:var(--soft)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.hint{font-size:.95rem;color:var(--muted);margin-top:14px}
+.shake{animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}}
+/* writing */
+.trait{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 16px;margin:10px 0}
+.trait .nm{font-weight:800}
+.scores{display:flex;gap:8px;margin-top:8px}
+.scores button{min-width:56px;border-color:var(--line);background:var(--bg);color:var(--ink)}
+.scores button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.prompt{background:var(--soft);border-radius:16px;padding:16px 18px;font-size:1.2rem;font-weight:700;margin:12px 0}
+/* results */
+.bars{display:grid;gap:14px;margin:14px 0 22px}
+.brow .lab{display:flex;justify-content:space-between;gap:10px;font-weight:800}
+.seg{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:6px 0 4px}
+.seg i{height:16px;border-radius:6px;background:var(--line)}
+.seg i.fill{background:var(--accent)}
+.seg i.try{background:repeating-linear-gradient(45deg,var(--sun) 0 5px,transparent 5px 10px);border:2px solid var(--sun)}
+.scale{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;font-size:.78rem;color:var(--muted);text-align:center}
+details{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px 16px;margin:12px 0}
+summary{cursor:pointer;font-weight:800;min-height:32px}
+textarea{width:100%;min-height:180px;font:inherit;font-size:.9rem;padding:10px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--ink)}
+.log{font-size:.92rem;margin:6px 0 0;padding-left:1.1em}
+.log li{margin-bottom:6px}
+.bad{color:#c0392b}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .bad{color:#ff8a7a}}
+:root[data-theme="dark"] .bad{color:#ff8a7a}
+</style>
+</head>
+<body>
+<main id="app" aria-live="polite"></main>
+
+<script>
+"use strict";
+/* ---------- helpers ---------- */
+const ri=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const pick=a=>a[ri(0,a.length-1)];
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=ri(0,i);[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+/* ---------- question banks ----------
+   Each item: [question, correct, wrong1, wrong2, wrong3, (passage)]
+   Levels 1-6 loosely follow Grades 1-6. */
+const STRANDS=[
+{id:"vocab",name:"Vocabulary",icon:"📚",blurb:"Word meanings, opposites, words in context",speak:true,bank:{
+1:[
+["Which word means the same as big?","large","tiny","red","wet"],
+["Which word means the same as happy?","glad","sad","angry","cold"],
+["Which word is the opposite of hot?","cold","warm","sunny","soft"],
+["Which word means the same as jump?","hop","sit","sleep","eat"],
+["Which word is the opposite of up?","down","over","high","top"],
+["Which word means the same as little?","small","huge","loud","fast"]],
+2:[
+["Which word is the opposite of empty?","full","clean","open","dry"],
+["Which word means the same as quick?","fast","slow","quiet","late"],
+["Which word means the same as begin?","start","stop","finish","wait"],
+["Which word is the opposite of noisy?","quiet","loud","busy","tall"],
+["A puppy is to a dog as a kitten is to a ___.","cat","bird","fish","horse"],
+["Which word means the same as tired?","sleepy","hungry","funny","sharp"]],
+3:[
+["Which word means the same as enormous?","huge","heavy","round","tiny"],
+["Which word is the opposite of generous?","selfish","kind","wealthy","careful"],
+["What does the word unhappy mean?","not happy","very happy","happy again","almost happy"],
+["What does the word rewrite mean?","write again","write first","never write","write slowly"],
+["Which word means the same as rapid?","fast","gentle","heavy","distant"],
+["The explorer was ___ about the dark cave, so she packed a flashlight. Which word fits best?","cautious","careless","bored","sleepy"]],
+4:[
+["Which word means the same as reluctant?","unwilling","eager","confused","tired"],
+["What does abundant mean?","plentiful","rare","tiny","costly"],
+["Which word is the opposite of ancient?","modern","old","broken","distant"],
+["The prefix mis- means “wrong.” What does misspell mean?","spell wrongly","spell again","spell quickly","never spell"],
+["The detective was ___ and noticed even the tiniest clues. Which word fits best?","observant","forgetful","drowsy","careless"],
+["The root word port means “carry.” What does transport most likely mean?","carry from one place to another","carry back to the start","carry something heavy","stop carrying"]],
+5:[
+["What does meticulous mean?","very careful about details","very fast","very loud","easily upset"],
+["Which word is closest in meaning to scarce?","rare","plentiful","heavy","bright"],
+["What does benevolent mean?","kind and generous","cruel and angry","rich and famous","shy and quiet"],
+["Which word is the opposite of hostile?","friendly","angry","distant","careful"],
+["A hypothesis is best described as…","an idea that can be tested","a proven fact","a kind of lab tool","a final answer"],
+["The speaker was eloquent. What does eloquent mean?","able to speak clearly and convincingly","unable to be heard","very tired","easily confused"]],
+6:[
+["What does ambiguous mean?","open to more than one meaning","perfectly clear","very loud","well known"],
+["What does ephemeral mean?","lasting a very short time","lasting forever","very large","hard to understand"],
+["A pragmatic person is mostly…","practical","dreamy","shy","wasteful"],
+["What does meager mean?","small in amount","generous","colorful","dangerous"],
+["What does reticent mean?","reserved, not eager to speak","eager to talk","easily angered","very curious"],
+["What does ubiquitous mean?","seeming to be everywhere","very rare","hidden","ancient"]]
+}},
+{id:"spell",name:"Spelling",icon:"✏️",blurb:"Which spelling is right?",speak:false,bank:{
+1:[
+["Which word is spelled correctly?","said","sed","sayd","siad"],
+["Which word is spelled correctly?","they","thay","thei","thae"],
+["Which word is spelled correctly?","like","lik","liek","lyke"],
+["Which word is spelled correctly?","tree","tre","trea","treee"],
+["Which word is spelled correctly?","make","mak","maik","mayk"],
+["Which word is spelled correctly?","jump","jumpp","jumb","gump"]],
+2:[
+["Which word is spelled correctly?","because","becuz","becose","becaus"],
+["Which word is spelled correctly?","friend","freind","frend","firend"],
+["Which word is spelled correctly?","again","agen","agin","agian"],
+["Which word is spelled correctly?","school","scool","skool","schol"],
+["Which word is spelled correctly?","people","peeple","peple","poeple"],
+["Which word is spelled correctly?","light","lyte","liet","ligt"]],
+3:[
+["Which word is spelled correctly?","different","diffrent","diferent","differant"],
+["Which word is spelled correctly?","favorite","favrite","faverite","favorit"],
+["Which word is spelled correctly?","beautiful","beutiful","beautifull","beatiful"],
+["Which word is spelled correctly?","believe","beleive","belive","beleave"],
+["Which word is spelled correctly?","answer","anser","ansir","answur"],
+["Which word is spelled correctly?","enough","enuff","enogh","enouf"]],
+4:[
+["Which word is spelled correctly?","necessary","neccessary","necesary","neccesary"],
+["Which word is spelled correctly?","separate","seperate","separete","seperete"],
+["Which word is spelled correctly?","government","goverment","govermment","govenment"],
+["Which word is spelled correctly?","knowledge","knowlege","nowledge","knolledge"],
+["Which word is spelled correctly?","environment","enviroment","envirnment","enviornment"],
+["Which word is spelled correctly?","weird","wierd","wiered","weard"]],
+5:[
+["Which word is spelled correctly?","embarrass","embarass","embarras","embarress"],
+["Which word is spelled correctly?","conscience","concience","consience","conscence"],
+["Which word is spelled correctly?","accommodate","acommodate","accomodate","acomodate"],
+["Which word is spelled correctly?","rhythm","rythm","rhythem","rhythym"],
+["Which word is spelled correctly?","temperature","temperture","tempature","temprature"],
+["Which word is spelled correctly?","restaurant","restaraunt","resturant","restarant"]],
+6:[
+["Which word is spelled correctly?","definitely","definately","definitly","definitley"],
+["Which word is spelled correctly?","maintenance","maintainance","maintenence","maintenanse"],
+["Which word is spelled correctly?","occurrence","occurence","occurrance","ocurrence"],
+["Which word is spelled correctly?","bureaucracy","beuracracy","bureacracy","bureaucricy"],
+["Which word is spelled correctly?","conscientious","consientious","conscientous","concientious"],
+["Which word is spelled correctly?","questionnaire","questionaire","questionnair","questionnare"]]
+}},
+{id:"grammar",name:"Grammar & punctuation",icon:"🔤",blurb:"Sentences, verbs, commas, apostrophes",speak:true,bank:{
+1:[
+["Which sentence is written correctly?","My cat is black.","my cat is black.","My cat is black","my Cat is black."],
+["Yesterday the cat ___ on the mat. Which word fits?","sat","sit","sitted","sitting"],
+["Which sentence is a question?","Where is my shoe?","I lost my shoe.","Put on your shoe.","My shoe is red."],
+["Which word completes the sentence? I have two ___.","dogs","dog","dogss","doges"],
+["Which sentence is correct?","She has a red hat.","She have a red hat.","She haves a red hat.","She having a red hat."],
+["Which sentence ends with the right mark?","What is your name?","What is your name.","What is your name,","What is your name:"]],
+2:[
+["Which sentence is correct?","We went to the park.","We went too the park.","We went two the park.","We wint to the park."],
+["One fox, two ___.","foxes","foxs","foxen","fox"],
+["Yesterday we ___ to the zoo. Which word fits?","went","goed","gone","go"],
+["Which sentence is correct?","Mia and I are friends.","Me and Mia are friends.","Mia and me is friends.","Mia and I is friends."],
+["Which sentence uses commas correctly?","We ate pizza, salad, and fruit.","We ate, pizza salad and, fruit.","We ate pizza salad and fruit,","We, ate pizza salad and fruit."],
+["Which word is the noun in this sentence? The happy dog ran.","dog","happy","ran","The"]],
+3:[
+["Which sentence is correct?","That is Sam’s backpack.","That is Sams backpack.","That is Sams’ backpack.","That is Sam backpack’s."],
+["Everyone in the class ___ excited yesterday. Which word fits?","was","were","be","are"],
+["Which is a complete sentence?","The tired hikers rested by the lake.","Rested by the lake.","The tired hikers by the lake.","By the lake and the trees."],
+["Which is the correct contraction of do not?","don’t","do’nt","dont","d’ont"],
+["Which sentence is written correctly?","I can’t find my coat anywhere.","I can’t find my coat nowhere.","I cannot find no coat.","I don’t have no coat."],
+["___ going to be late. Which word fits?","They’re","Their","There","Theyre"]],
+4:[
+["Which sentence uses a comma correctly?","After lunch, we played outside.","After, lunch we played outside.","After lunch we played, outside.","After lunch we played outside,"],
+["Which sentence uses quotation marks correctly?","“I am ready,” said Ben.","“I am ready, said Ben.”","I am “ready,” said Ben.","“I am ready” said, Ben."],
+["Which sentence has a verb that agrees with its subject?","The boys play soccer after school.","The boys plays soccer after school.","The boy play soccer after school.","The boys is play soccer after school."],
+["Which word is the adverb? The turtle walked slowly.","slowly","turtle","walked","The"],
+["Which sentence is correct?","She had run to the store.","She had ran to the store.","She has runned to the store.","She had running to the store."],
+["The wind ___ the leaves off the tree. Which word fits?","blew","blue","blow","blowed"]],
+5:[
+["Mr. Lee gave the books to Ana and ___. Which word fits?","me","I","myself","my"],
+["Which sentence is NOT a run-on?","I like soccer, and my sister likes tennis.","I like soccer my sister likes tennis.","I like soccer, my sister likes tennis.","I like soccer my sister likes tennis we play both."],
+["The team lost ___ first game. Which word fits?","its","it’s","its’","it"],
+["Which sentence is correct?","There are fewer apples in the basket today.","There are less apples in the basket today.","There is fewer apples in the basket today.","There is less apples in the basket today."],
+["Which sentence uses a comma correctly after an introductory word?","However, the game was canceled.","However the game, was canceled.","However the game was, canceled.","However, the, game was canceled."],
+["Which sentence has correct subject-verb agreement?","Neither of the dogs is hungry.","Neither of the dogs are hungry.","Neither of the dog is hungry.","Neither of the dogs were hungry."]],
+6:[
+["Which sentence uses a semicolon correctly?","I studied all week; the test was still hard.","I studied all week; and the test was still hard.","I studied; all week the test was hard.","I studied all; week the test was hard."],
+["Which sentence has NO dangling modifier?","Walking to school, Maya saw a rainbow.","Walking to school, a rainbow appeared.","Walking to school, the rain started.","Running late, the bus left."],
+["Which sentence uses parallel structure?","She likes hiking, swimming, and biking.","She likes hiking, to swim, and biking.","She likes to hike, swimming, and bike.","She likes hiking, swim, and biking."],
+["Which sentence uses the apostrophe correctly?","The children’s toys were everywhere.","The childrens’ toys were everywhere.","The childrens toys were everywhere.","The children toy’s were everywhere."],
+["Which sentence uses a colon correctly?","You will need three things: a pencil, paper, and a ruler.","You will need: three things a pencil, paper, and a ruler.","You will: need three things a pencil, paper, and a ruler.","You will need three: things a pencil, paper, and a ruler."],
+["By the time we arrived, the movie ___ already started. Which word fits?","had","has","have","will"]]
+}},
+{id:"reading",name:"Reading",icon:"📖",blurb:"Short passages with questions",speak:false,bank:{
+1:[
+["What does Sam kick?","the ball","a hat","a box","a dog","Sam has a red ball. He kicks it to Mom."],
+["Where does Kit sit?","in the shade","in the sun","in a car","on a bus","The sun is hot. Kit sits in the shade."],
+["What is Max?","a cat","a dog","a boy","a fish","Ann has a cat. The cat is Max. Max likes milk."],
+["Why does Ben get his boots and coat?","It is raining.","It is hot.","He is sleepy.","He is hungry.","It is raining. Ben gets his boots and a coat."],
+["How many animals did Mia see?","3","2","4","1","Mia went to the farm. She saw a cow, a pig, and a hen."],
+["Why did Tom blow on the soup?","It was hot.","It was cold.","It was too salty.","He was sleepy.","Dad made soup. It was hot. Tom blew on it."]],
+2:[
+["What happened after a week?","A tiny sprout came up.","The pot broke.","Lily ran out of water.","The seed turned blue.","Lily planted a seed in a pot. She gave it water every day. After a week, a tiny green sprout came up."],
+["What did the class do first at the library?","They listened to a story.","They picked a book to take home.","They went home.","They wrote a story.","The class went to the library on Friday. Mr. Ortiz read a story about a bear. Then everyone picked a book to take home."],
+["How did Jake get his kite back?","His neighbor used a ladder.","He climbed the tree.","It blew down by itself.","He bought a new one.","Jake was sad because his kite got stuck in a tree. His neighbor brought a long ladder and got it down. Jake said, “Thank you!”"],
+["What is this passage mostly about?","Penguins are good swimmers.","Birds that fly very high.","What penguins eat.","Where penguins build nests.","Penguins cannot fly, but they are great swimmers. They use their wings like flippers."],
+["What season is it most likely?","winter","summer","spring","fall","Rosa put on her coat and hat. She grabbed her mittens, too. Then she ran outside to build a snowman."],
+["Which word tells the sound the frog made?","Splash","hopped","log","pond","The little frog hopped from log to log. Splash! He landed in the pond."]],
+3:[
+["What do some bees do, according to the passage?","Guard the door of the hive","Build roads","Teach the babies to fly","Plant flowers","Honeybees live together in a hive. Each bee has a job. Some bees collect nectar from flowers, some feed the babies, and some guard the door."],
+["Why did Maya win?","She practiced every night.","She was the oldest.","Her dad helped during the bee.","The words were easy.","Maya wanted to win the spelling bee. Every night she practiced her words with her dad. On the day of the bee, she spelled every word right and won first place."],
+["Why do desert animals come out at night?","It is cooler then.","They are afraid of people.","Plants grow at night.","The desert is empty.","The desert may look empty, but many animals live there. Most of them hide from the heat during the day and come out at night when it is cooler."],
+["How did Carlos most likely feel?","nervous","angry","bored","sleepy","Carlos’s hands shook as he walked onto the stage. His mouth felt dry, and his heart was pounding. He took a deep breath and began to speak."],
+["What does the word carve most likely mean here?","cut or wear away","paint","freeze","fill up","A glacier is a huge river of ice that moves very slowly. Over many years, glaciers can carve out valleys in the land beneath them."],
+["What did Dad do right after cracking the eggs?","He whisked them with milk.","He poured them into a pan.","He washed the bowl.","He set the table.","First, Dad cracked two eggs into a bowl. Next, he whisked them with a little milk. Finally, he poured the mix into a hot pan."]],
+4:[
+["What does this story show about Mr. Alvarez?","He cares about his neighbors.","He is afraid of the dark.","He likes to cook.","He wants to be alone.","When the power went out, the whole block went dark. Mr. Alvarez lit a candle and knocked on his neighbors’ doors to see if anyone needed help. Soon, three families were sharing dinner by candlelight."],
+["According to scientists, how do sea turtles find their beach?","They sense Earth’s magnetic field.","They follow ships.","They smell the sand from far away.","They ask other turtles.","Sea turtles travel thousands of miles across the ocean, yet females return to lay eggs on the very beach where they hatched. Scientists believe the turtles sense Earth’s magnetic field, which works like a map."],
+["Why did the teammates cheer so loudly?","The goal felt like a big win after a hard season.","They had won the championship.","Ella was the coach.","The game was over.","Ella’s team had lost every game this season. At the last game, Ella scored the first goal of the year. Her teammates cheered as if they had won the championship."],
+["Why is the lighthouse now a museum?","Satellites now guide ships.","It fell down.","No ships travel there anymore.","It is too small.","The old lighthouse stood on the cliff for over a hundred years. Ships once depended on its beam to avoid the rocks below. Today, satellites guide ships, so the lighthouse is a museum."],
+["What does the phrase “flat as a pancake” mean here?","The cake did not rise and was very flat.","The cake tasted like a pancake.","Priya made pancakes instead.","The cake was burnt black.","Priya read the recipe twice. Then she measured the flour, cracked an egg, and stirred the batter. When the cake came out of the oven, it was flat as a pancake."],
+["Why does honey not spoil?","It has so little water that bacteria cannot grow.","It is kept in tombs.","It is very sweet and sticky.","It is made by ancient bees.","Honey never spoils. Archaeologists have found pots of honey in ancient tombs that are thousands of years old and still safe to eat. Honey is so low in water that bacteria cannot grow in it."]],
+5:[
+["What does the passage suggest about the Moon landing?","It was riskier than most viewers realized.","It was easy and routine.","Few people watched it.","It was done by computer alone.","In 1969, astronauts first walked on the Moon. Millions of people watched on television, but few knew how close the mission came to failing. During the landing, alarms sounded in the spacecraft, and the crew had to land manually with little fuel left."],
+["What is the author comparing the city to?","a person waking up","a sleeping animal","a bright machine","a quiet library","The author describes the city at dawn: “Streetlights flickered off one by one, as if the city were slowly waking from a long sleep.”"],
+["What was one effect of bringing wolves back?","Young trees regrew along the rivers.","Elk numbers grew.","The rivers dried up.","Beavers left the area.","When wolves were reintroduced to Yellowstone, elk began avoiding open meadows where wolves could easily hunt them. With less grazing, young trees along the rivers grew back, giving beavers and birds new places to live."],
+["How did Marcus’s feelings change?","He still disliked the rule but began to understand it.","He stopped caring about the field.","He became angry at the principal.","He decided the rule was perfect.","Marcus thought the new rule was unfair because it stopped him from using the field at lunch. His principal explained that the grass needed time to recover from heavy use. Marcus still disliked it, but he began to understand why it mattered."],
+["What is the main idea of the passage?","Coral reefs are very valuable but threatened by warming oceans.","Coral reefs cover most of the ocean floor.","Storms are the biggest danger to reefs.","Corals are always white.","Coral reefs cover less than one percent of the ocean floor, yet they support about a quarter of all marine species. Reefs also protect coastlines from storms. But warming oceans cause corals to turn white and die, putting these benefits at risk."],
+["What does weariness mean?","tiredness","excitement","fear","hunger","The hikers were exhausted, but the view from the summit made the climb worthwhile. Their weariness faded as they gazed across the valley."]],
+6:[
+["Which statement best describes the author’s approach?","It presents both benefits and concerns about rooftop gardens.","It argues strongly against rooftop gardens.","It explains how to build a rooftop garden.","It tells a story about one city.","Many cities have started adding rooftop gardens. Supporters point out that the plants cool buildings, reduce rainwater runoff, and give people green space. Critics worry about the high cost of installation and the added weight on older roofs."],
+["What effect did Dana’s joke have?","It relaxed both Dana and the audience.","It made the audience angry.","It showed she had not practiced.","It ended the speech early.","Though she had rehearsed her speech a dozen times, Dana’s voice cracked at the first sentence. She paused, smiled at the audience, and said, “Let me start over — my nerves got a head start.” The audience laughed, and the tension in the room melted."],
+["What does this passage suggest about the inventor?","He learned from his failures and kept going.","He gave up easily.","He wanted others to do the work.","He never made mistakes.","The inventor’s first machine failed. So did the second and the third. Rather than quit, he labeled each failure and studied it, treating every broken part as a clue."],
+["What is the author’s main purpose?","To persuade readers to support easier recycling","To entertain readers with a story","To explain how plastic is made","To describe a trip to a landfill","Every day, millions of plastic bottles are thrown away, and most end up in landfills where they take hundreds of years to break down. It is time for communities to make recycling easier and more convenient for everyone."],
+["According to the passage, how do toads differ from frogs?","Toads have dry, bumpy skin and can live in drier places.","Toads have smooth, moist skin.","Toads always stay in the water.","Toads cannot lay eggs.","Unlike frogs, which have smooth, moist skin, toads have dry, bumpy skin. Frogs usually stay near water, while toads can live in drier places, returning to water mainly to lay eggs."],
+["Which theme does the passage best support?","Solving problems takes cooperation, not blame.","Old things are always better.","Children should not speak up.","Wells are the best water source.","The village had always relied on the old well. When it ran dry, the elders argued for weeks about whose fault it was. It was the youngest child, Tomás, who suggested they work together to dig a new one."]]
+}}
+];
+
+/* ---------- writing sample (grown-up scored) ---------- */
+const WPROMPT="Write about a place you would love to explore and why. Try for 5 to 8 sentences.";
+const TRAITS=[
+{id:"ideas",name:"Ideas",desc:"Stays on topic and gives reasons or details."},
+{id:"org",name:"Organization",desc:"Clear beginning, middle, and end; sentences in a sensible order."},
+{id:"sent",name:"Sentences",desc:"Complete sentences, with some variety in how they start and sound."},
+{id:"conv",name:"Spelling & punctuation",desc:"Capitals, end marks, and spelling of everyday words."}
+];
+
+/* ---------- state ---------- */
+const KEY="skillDiveEnglish_v1";
+const QCOUNT=10;
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null;}catch(e){return null;}}
+let S=load()||{strands:{},writing:null};
+function ST(id){if(!S.strands[id])S.strands[id]={level:3,streak:0,n:0,stats:{},log:[],seen:[],cur:null,done:false};return S.strands[id];}
+const app=document.getElementById("app");
+let resetArmed=false,sel=null,tmpScores={};
+
+/* ---------- engine ---------- */
+const keyOf=it=>it[0]+"|"+it[1]+"|"+(it[5]||"");
+function gen(st,sid){
+  const sd=STRANDS.find(s=>s.id===sid),bank=sd.bank[st.level];
+  const fresh=bank.filter(it=>!st.seen.includes(keyOf(it)));
+  const it=pick(fresh.length?fresh:bank);
+  st.seen.push(keyOf(it));
+  return{q:it[0],p:it[5]||"",opts:shuffle([it[1],it[2],it[3],it[4]]),c:it[1],level:st.level};
+}
+function placement(st){
+  let best=0;
+  for(let l=1;l<=6;l++){const s=st.stats[l];if(s&&s.c>=2&&s.c/s.a>=0.6)best=l;}
+  const next=st.stats[best+1];
+  return{best,tricky:(best<6&&next&&next.a>0)?best+1:null};
+}
+
+/* ---------- views ---------- */
+function wave(){return `<svg class="wave" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14 Q 25 0 50 14 T 100 14 T 150 14 T 200 14 T 250 14 T 300 14 T 350 14 T 400 14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>`;}
+
+function home(msg){
+  const anyDone=STRANDS.some(s=>ST(s.id).done)||S.writing;
+  const cards=STRANDS.map(s=>{
+    const st=ST(s.id);
+    let status,btn="";
+    if(st.done){status=`<div class="status ok">Finished ✓</div>`;}
+    else if(st.n>0){status=`<div class="status">In progress: ${st.n} of ${QCOUNT} answered</div>`;btn=`<button class="primary" data-go="${s.id}">Keep going</button>`;}
+    else{status=`<div class="status">Not started</div>`;btn=`<button class="primary" data-go="${s.id}">Start</button>`;}
+    return `<div class="strand ${st.done?"done":""}"><div class="top"><div class="icon" aria-hidden="true">${s.icon}</div><div><h2>${s.name}</h2><div class="muted">${s.blurb}</div></div></div>${status}${btn?`<div class="row">${btn}</div>`:""}</div>`;
+  }).join("");
+  const wcard=`<div class="strand ${S.writing?"done":""}"><div class="top"><div class="icon" aria-hidden="true">🖊️</div><div><h2>Writing sample</h2><div class="muted">Write on paper, then a grown-up scores it</div></div></div><div class="status ${S.writing?"ok":""}">${S.writing?"Scored ✓":"Not started"}</div><div class="row"><button class="${S.writing?"ghost":"primary"}" id="goWrite">${S.writing?"View or change":"Start"}</button></div></div>`;
+  app.innerHTML=`
+    <h1>Skill Dive: English</h1>${wave()}
+    ${msg?`<div class="banner">${msg}</div>`:""}
+    <div class="intro">
+      <p><strong>Welcome back, explorer!</strong> Each dive has ${QCOUNT} questions. They start in the middle and get harder when you’re doing well, so some will feel tricky. That’s on purpose.</p>
+      <p style="margin:0">Pick the answer you think is best, then tap Done. If you’re stuck, tap “Not sure yet.” Do one dive at a time.</p>
+    </div>
+    <div class="grid">${cards}${wcard}</div>
+    ${anyDone?`<div class="row" style="margin-top:20px"><button class="ghost" id="seeRes">See results</button></div>`:""}`;
+  app.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",()=>quiz(b.dataset.go)));
+  document.getElementById("goWrite").addEventListener("click",writing);
+  const r=document.getElementById("seeRes");if(r)r.addEventListener("click",results);
+  window.scrollTo(0,0);
+}
+
+function speechText(q){return `${q.p?q.p+" ":""}${q.q} `+q.opts.map((o,i)=>`${"ABCD"[i]}. ${o}.`).join(" ");}
+
+function quiz(id){
+  const st=ST(id),sd=STRANDS.find(s=>s.id===id);
+  if(st.done){home();return;}
+  if(!st.cur){st.cur=gen(st,id);save();}
+  const q=st.cur;sel=null;
+  const dots=Array.from({length:QCOUNT},(_,i)=>`<span class="dot ${i<st.n?"on":i===st.n?"now":""}"></span>`).join("");
+  const canSpeak=sd.speak&&"speechSynthesis" in window;
+  app.innerHTML=`
+    <div class="qtop"><button class="link" id="back">← Menu</button><strong>${sd.icon} ${sd.name}</strong></div>
+    <div class="dots" role="img" aria-label="Question ${st.n+1} of ${QCOUNT}">${dots}</div>
+    <div class="qcard">
+      ${q.p?`<div class="passage">${q.p}</div>`:""}
+      <div class="qtext">${q.q}</div>
+      <div class="opts" role="group" aria-label="Answer choices">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}" aria-pressed="false">${o}</button>`).join("")}</div>
+      <div class="actions">
+        <button class="primary" id="go">Done</button>
+        <button class="ghost" id="idk">Not sure yet</button>
+        ${canSpeak?`<button class="ghost" id="say" aria-label="Read the question aloud">🔊 Read it to me</button>`:""}
+      </div>
+      <div class="hint">Take your time. Tap an answer, then tap Done.</div>
+    </div>`;
+  document.getElementById("back").addEventListener("click",()=>home());
+  document.getElementById("go").addEventListener("click",()=>submit(id,false));
+  document.getElementById("idk").addEventListener("click",()=>submit(id,true));
+  if(canSpeak)document.getElementById("say").addEventListener("click",()=>{try{speechSynthesis.cancel();speechSynthesis.speak(new SpeechSynthesisUtterance(speechText(q)));}catch(e){}});
+  app.querySelectorAll(".opt").forEach(b=>b.addEventListener("click",()=>{
+    sel=Number(b.dataset.i);
+    app.querySelectorAll(".opt").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
+  }));
+  window.scrollTo(0,0);
+}
+
+function submit(id,idk){
+  const st=ST(id),q=st.cur;if(!q)return;
+  let given="not sure",ok=false;
+  if(!idk){
+    if(sel===null){const box=app.querySelector(".opts");box.classList.remove("shake");void box.offsetWidth;box.classList.add("shake");return;}
+    given=q.opts[sel];ok=given===q.c;
+  }
+  const s=st.stats[q.level]||(st.stats[q.level]={a:0,c:0});
+  s.a++;if(ok)s.c++;
+  st.log.push({lvl:q.level,q:(q.p?q.p+" — ":"")+q.q,given,ok,ans:q.c});
+  if(ok){st.streak++;if(st.streak>=2){st.level=Math.min(6,st.level+1);st.streak=0;}}
+  else{st.level=Math.max(1,st.level-1);st.streak=0;}
+  st.n++;st.cur=null;
+  if(st.n>=QCOUNT){st.done=true;save();const sd=STRANDS.find(x=>x.id===id);home(`Dive finished: ${sd.name}. Nice work! Pick another dive whenever you’re ready.`);return;}
+  save();quiz(id);
+}
+
+function writing(){
+  tmpScores=Object.assign({},S.writing||{});
+  const rows=TRAITS.map(t=>`<div class="trait"><div class="nm">${t.name}</div><div class="muted">${t.desc}</div><div class="scores" data-t="${t.id}">${[1,2,3,4].map(n=>`<button data-n="${n}" aria-pressed="${tmpScores[t.id]===n}" aria-label="${t.name}: ${n}">${n}</button>`).join("")}</div></div>`).join("");
+  app.innerHTML=`
+    <div class="qtop"><button class="link" id="back">← Menu</button></div>
+    <h1>Writing sample</h1>${wave()}
+    <p>Write on paper, with no help on spelling. About 10 to 15 minutes is plenty.</p>
+    <div class="prompt">${WPROMPT}</div>
+    <h2 style="margin-top:22px">For grown-ups: score what he wrote</h2>
+    <p class="muted">Rate each part from 1 to 4 compared with a typical 3rd grader. 1 = needs a lot of support, 2 = still developing, 3 = solid for 3rd grade, 4 = strong, beyond 3rd grade.</p>
+    ${rows}
+    <div class="row" style="margin-top:14px"><button class="primary" id="saveW">Save scores</button><span id="wmsg" class="muted"></span></div>`;
+  document.getElementById("back").addEventListener("click",()=>home());
+  app.querySelectorAll(".scores").forEach(g=>g.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+    tmpScores[g.dataset.t]=Number(b.dataset.n);
+    g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));
+  })));
+  document.getElementById("saveW").addEventListener("click",()=>{
+    const m=document.getElementById("wmsg");
+    if(!TRAITS.every(t=>tmpScores[t.id])){m.textContent="Pick a score for all four parts first.";return;}
+    S.writing=Object.assign({},tmpScores);save();home("Writing scores saved.");
+  });
+  window.scrollTo(0,0);
+}
+
+function writingLine(){
+  if(!S.writing)return"";
+  return TRAITS.map(t=>`${t.name} ${S.writing[t.id]}/4`).join(", ");
+}
+
+function summaryText(){
+  const lines=["Skill Dive: English results","(Approximate levels from multiple-choice questions. A quick screener, not an official assessment.)",""];
+  STRANDS.forEach(s=>{
+    const st=ST(s.id);
+    if(!st.done){lines.push(`${s.name}: not finished`);return;}
+    const p=placement(st);
+    const tot=Object.values(st.stats).reduce((x,y)=>({a:x.a+y.a,c:x.c+y.c}),{a:0,c:0});
+    lines.push(`${s.name}: comfortable around ${p.best?"Grade "+p.best:"Grade 1 or below"}${p.tricky?`, getting tricky at Grade ${p.tricky}`:""} (${tot.c}/${tot.a} correct)`);
+  });
+  lines.push(S.writing?`Writing sample (grown-up scored, 1 to 4 vs. 3rd grade): ${writingLine()}`:"Writing sample: not scored");
+  lines.push("","Missed or skipped questions:");
+  STRANDS.forEach(s=>{
+    ST(s.id).log.filter(l=>!l.ok).forEach(l=>lines.push(`- [${s.name}, level ${l.lvl}] ${l.q} | answered: ${l.given} | correct: ${l.ans}`));
+  });
+  return lines.join("\n");
+}
+
+function results(){
+  resetArmed=false;
+  const esc=t=>String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  const rows=STRANDS.map(s=>{
+    const st=ST(s.id);
+    if(!st.done){
+      return `<div class="brow"><div class="lab"><span>${s.icon} ${s.name}</span><span class="muted">${st.n>0?"Not finished":"Not started"}</span></div></div>`;
+    }
+    const p=placement(st);
+    const segs=[1,2,3,4,5,6].map(l=>`<i class="${l<=p.best?"fill":l===p.tricky?"try":""}"></i>`).join("");
+    const note=p.best===0?"Still building the basics here":`Comfortable around Grade ${p.best}`+(p.tricky?`; Grade ${p.tricky} is where it gets tricky`:p.best===6?"; may be ready for even harder material":"");
+    return `<div class="brow"><div class="lab"><span>${s.icon} ${s.name}</span></div><div class="seg">${segs}</div><div class="scale"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div><div class="muted">${note}</div></div>`;
+  }).join("");
+  const wrow=`<div class="brow"><div class="lab"><span>🖊️ Writing sample</span><span class="muted">${S.writing?"Scored by a grown-up":"Not scored"}</span></div>${S.writing?`<div class="muted">${writingLine()}</div>`:""}</div>`;
+  const logs=STRANDS.filter(s=>ST(s.id).log.length).map(s=>{
+    const st=ST(s.id);
+    return `<details><summary>${s.icon} ${s.name}: every question</summary><ol class="log">${st.log.map(l=>`<li class="${l.ok?"":"bad"}">[L${l.lvl}] ${esc(l.q)}<br>Answered: ${esc(l.given)}${l.ok?" ✓":` ✗ (correct: ${esc(l.ans)})`}</li>`).join("")}</ol></details>`;
+  }).join("");
+  app.innerHTML=`
+    <div class="qtop"><button class="link" id="back">← Menu</button></div>
+    <h1>Results</h1>${wave()}
+    <p class="muted">Filled blocks show where he’s solid. A striped block is the level where it started to get hard. Levels 1–6 loosely follow Grades 1–6.</p>
+    <div class="bars">${rows}${wrow}</div>
+    <details><summary>For grown-ups: copy a summary</summary>
+      <p class="muted">Levels are rough estimates from ${QCOUNT} multiple-choice questions per area, so some lucky guesses are possible. Skim the questions for errors and for skipped or rushed answers before trusting a number.</p>
+      <textarea id="sum" readonly>${esc(summaryText())}</textarea>
+      <div class="row" style="margin-top:10px"><button class="primary" id="copy">Copy summary</button><span id="copied" class="muted"></span></div>
+    </details>
+    ${logs}
+    <div class="row" style="margin-top:22px"><button class="ghost" id="reset">Start over (clears all results)</button></div>`;
+  document.getElementById("back").addEventListener("click",()=>home());
+  document.getElementById("copy").addEventListener("click",async()=>{
+    const t=document.getElementById("sum"),c=document.getElementById("copied");
+    try{await navigator.clipboard.writeText(t.value);c.textContent="Copied.";}
+    catch(e){t.focus();t.select();c.textContent="Text selected. Tap Copy in the menu.";}
+  });
+  const rs=document.getElementById("reset");
+  rs.addEventListener("click",()=>{
+    if(!resetArmed){resetArmed=true;rs.textContent="Tap again to erase everything";return;}
+    S={strands:{},writing:null};save();home("Everything was cleared. You can start fresh.");
+  });
+  window.scrollTo(0,0);
+}
+
+home();
+</script>
+</body>
+</html>
